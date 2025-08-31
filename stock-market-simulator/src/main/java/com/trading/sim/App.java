@@ -3,7 +3,6 @@ package com.trading.sim;
 import com.trading.sim.market.Market;
 import com.trading.sim.model.Company;
 import com.trading.sim.trader.AccountingTrader;
-import com.trading.sim.trader.Trader;
 import com.trading.sim.trader.strategies.MeanReversionStrategy;
 import com.trading.sim.trader.strategies.RandomStrategy;
 

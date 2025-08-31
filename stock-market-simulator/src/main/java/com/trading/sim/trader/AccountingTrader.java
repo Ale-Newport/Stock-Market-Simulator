@@ -27,6 +27,9 @@ public class AccountingTrader implements Runnable {
         this.account = new Account(startingCash);
     }
 
+    public String getId() { return id; }
+    public Account getAccount() { return account; }
+
     public void stop() { running = false; }
 
     @Override
@@ -37,7 +40,6 @@ public class AccountingTrader implements Runnable {
                 for (Order o : orders) {
                     List<Trade> fills = market.submit(o);
                     if (!fills.isEmpty()) {
-                        // Update account on each fill this trader participated in
                         for (Trade t : fills) {
                             if (id.equals(t.getBuyTraderId()) || id.equals(t.getSellTraderId())) {
                                 account.applyFill(t, id);
@@ -47,7 +49,6 @@ public class AccountingTrader implements Runnable {
                     }
                 }
 
-                // Print a brief P&L snapshot about once per second
                 long now = System.currentTimeMillis();
                 if (now - lastReportMs >= 1000) {
                     double pnl = account.unrealizedPnL(market::lastPrice);
